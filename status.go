@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"strings"
 )
 
 const (
@@ -19,15 +20,17 @@ type Status int
 
 // UnmarshalString unmarshals the string into a Status value.
 func (status *Status) UnmarshalString(str string) error {
-	if str == "Actual" {
+	str = strings.ToLower(str)
+
+	if str == "actual" {
 		*status = StatusActual
-	} else if str == "Excercise" {
+	} else if str == "excercise" {
 		*status = StatusExcercise
-	} else if str == "System" {
+	} else if str == "system" {
 		*status = StatusSystem
-	} else if str == "Test" {
+	} else if str == "test" {
 		*status = StatusTest
-	} else if str == "Draft" {
+	} else if str == "draft" {
 		*status = StatusDraft
 	} else {
 		return errors.New("Unknown Status value: " + str)

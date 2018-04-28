@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"strings"
 )
 
 const (
@@ -18,15 +19,17 @@ type Certainty int
 
 // UnmarshalString unmarshals the string into a Certainty value.
 func (certainty *Certainty) UnmarshalString(str string) error {
-	if str == "Observed" {
+	str = strings.ToLower(str)
+
+	if str == "observed" {
 		*certainty = CertaintyObserved
-	} else if str == "Likely" || str == "Very Likely" {
+	} else if str == "likely" || str == "verylikely" || str == "very likely" {
 		*certainty = CertaintyLikely
-	} else if str == "Possible" {
+	} else if str == "possible" {
 		*certainty = CertaintyObserved
-	} else if str == "Unlikely" {
+	} else if str == "unlikely" {
 		*certainty = CertaintyUnlikely
-	} else if str == "Unknown" {
+	} else if str == "unknown" {
 		*certainty = CertaintyUnknown
 	} else {
 		return errors.New("Unknown Certainty value: " + str)

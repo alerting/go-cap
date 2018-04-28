@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"strings"
 )
 
 const (
@@ -23,23 +24,25 @@ type ResponseType int
 
 // UnmarshalString unmarshals the string into a ResponseType value.
 func (responseType *ResponseType) UnmarshalString(str string) error {
-	if str == "Shelter" {
+	str = strings.ToLower(str)
+
+	if str == "shelter" {
 		*responseType = ResponseTypeShelter
-	} else if str == "Evacuate" {
+	} else if str == "evacuate" {
 		*responseType = ResponseTypeEvacuate
-	} else if str == "Prepare" {
+	} else if str == "prepare" {
 		*responseType = ResponseTypePrepare
-	} else if str == "Execute" {
+	} else if str == "execute" {
 		*responseType = ResponseTypeExecute
-	} else if str == "Avoid" {
+	} else if str == "avoid" {
 		*responseType = ResponseTypeAvoid
-	} else if str == "Monitor" {
+	} else if str == "monitor" {
 		*responseType = ResponseTypeMonitor
-	} else if str == "Assess" {
+	} else if str == "assess" {
 		*responseType = ResponseTypeAssess
-	} else if str == "AllClear" || str == "All Clear" {
+	} else if str == "allclear" || str == "all clear" {
 		*responseType = ResponseTypeAllClear
-	} else if str == "None" {
+	} else if str == "none" {
 		*responseType = ResponseTypeNone
 	} else {
 		return errors.New("Unknown ResponseType value: " + str)

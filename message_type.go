@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"strings"
 )
 
 const (
@@ -19,15 +20,17 @@ type MessageType int
 
 // UnmarshalString unmarshals the string into a MessageType value.
 func (messageType *MessageType) UnmarshalString(str string) error {
-	if str == "Alert" {
+	str = strings.ToLower(str)
+
+	if str == "alert" {
 		*messageType = MessageTypeAlert
-	} else if str == "Update" {
+	} else if str == "update" {
 		*messageType = MessageTypeUpdate
-	} else if str == "Cancel" {
+	} else if str == "cancel" {
 		*messageType = MessageTypeCancel
-	} else if str == "Ack" {
+	} else if str == "ack" {
 		*messageType = MessageTypeAck
-	} else if str == "Error" {
+	} else if str == "error" {
 		*messageType = MessageTypeError
 	} else {
 		return errors.New("Unknown MessageType value")

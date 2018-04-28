@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"strings"
 )
 
 const (
@@ -26,29 +27,31 @@ type Category int
 
 // UnmarshalString unmarshals the string into a Category value
 func (category *Category) UnmarshalString(value string) error {
-	if value == "Geo" || value == "Geological" {
+	value = strings.ToLower(value)
+
+	if value == "geo" || value == "geological" {
 		*category = CategoryGeological
-	} else if value == "Met" || value == "Meteorological" {
+	} else if value == "met" || value == "meteorological" {
 		*category = CategoryMeteorological
-	} else if value == "Safety" {
+	} else if value == "safety" {
 		*category = CategorySafety
-	} else if value == "Security" {
+	} else if value == "security" {
 		*category = CategorySecurity
-	} else if value == "Rescue" {
+	} else if value == "rescue" {
 		*category = CategoryRescue
-	} else if value == "Fire" {
+	} else if value == "fire" {
 		*category = CategoryFire
-	} else if value == "Health" {
+	} else if value == "health" {
 		*category = CategoryHealth
-	} else if value == "Env" || value == "Environment" {
+	} else if value == "env" || value == "environment" {
 		*category = CategoryEnvironment
-	} else if value == "Transport" {
+	} else if value == "transport" {
 		*category = CategoryTransport
-	} else if value == "Infra" || value == "Infrastructure" {
+	} else if value == "infra" || value == "infrastructure" {
 		*category = CategoryInfrastructure
-	} else if value == "CBRNE" {
+	} else if value == "cbrne" {
 		*category = CategoryCBRNE
-	} else if value == "Other" {
+	} else if value == "other" {
 		*category = CategoryOther
 	} else {
 		return errors.New("Unknown Category value: " + value)

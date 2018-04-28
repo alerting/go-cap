@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"strings"
 )
 
 const (
@@ -18,15 +19,17 @@ type Urgency int
 
 // UnmarshalString unmarshals the string into a Urgency value.
 func (urgency *Urgency) UnmarshalString(str string) error {
-	if str == "Immediate" {
+	str = strings.ToLower(str)
+
+	if str == "immediate" {
 		*urgency = UrgencyImmediate
-	} else if str == "Expected" {
+	} else if str == "expected" {
 		*urgency = UrgencyExpected
-	} else if str == "Future" {
+	} else if str == "future" {
 		*urgency = UrgencyFuture
-	} else if str == "Past" {
+	} else if str == "past" {
 		*urgency = UrgencyPast
-	} else if str == "Unknown" {
+	} else if str == "unknown" {
 		*urgency = UrgencyUnknown
 	} else {
 		return errors.New("Unknown Urgency value: " + str)

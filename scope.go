@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"strings"
 )
 
 const (
@@ -17,11 +18,13 @@ type Scope int
 
 // UnmarshalString unmarshals the string into a Scope value.
 func (scope *Scope) UnmarshalString(str string) error {
-	if str == "Public" {
+	str = strings.ToLower(str)
+
+	if str == "public" {
 		*scope = ScopePublic
-	} else if str == "Restricted" {
+	} else if str == "restricted" {
 		*scope = ScopeRestricted
-	} else if str == "Private" {
+	} else if str == "private" {
 		*scope = ScopePrivate
 	} else {
 		return errors.New("Unknown Scope value")

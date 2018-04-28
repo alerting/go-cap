@@ -17,8 +17,8 @@ type Polygons []*Polygon
 func (p *Polygon) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	var str string
 	if err := d.DecodeElement(&str, &start); err != nil {
-    return err
-  }
+		return err
+	}
 
 	coords := strings.Split(str, " ")
 	coordinates := make([][]float64, 0)
@@ -51,7 +51,7 @@ func (p *Polygon) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	}
 
 	p.Type = "polygon"
-  p.Coordinates = [][][]float64{coordinates}
+	p.Coordinates = [][][]float64{coordinates}
 	return nil
 }
 

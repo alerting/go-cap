@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"strings"
 )
 
 const (
@@ -18,15 +19,17 @@ type Severity int
 
 // UnmarshalString unmarshals the string into a Severity value.
 func (severity *Severity) UnmarshalString(str string) error {
-	if str == "Extreme" {
+	str = strings.ToLower(str)
+
+	if str == "extreme" {
 		*severity = SeverityExtreme
-	} else if str == "Severe" {
+	} else if str == "severe" {
 		*severity = SeveritySevere
-	} else if str == "Moderate" {
+	} else if str == "moderate" {
 		*severity = SeverityModerate
-	} else if str == "Minor" {
+	} else if str == "minor" {
 		*severity = SeverityMinor
-	} else if str == "Unknown" {
+	} else if str == "unknown" {
 		*severity = SeverityUnknown
 	} else {
 		return errors.New("Unknown Severity value: " + str)
